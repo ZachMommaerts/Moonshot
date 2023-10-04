@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    let Astronauts = Bundle.main.decode("astronauts.json")
+    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
+    let missions: [Mission] = Bundle.main.decode("missions.json")
     
     var body: some View {
         VStack {
-            Text("\(Astronauts.count)")
+            Text("\(astronauts.count)")
+            Text("\(missions.count)")
         }
         .padding()
     }
