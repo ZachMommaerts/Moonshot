@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct MissionView: View {
-    struct CrewMember {
-        let role: String
-        let astronaut: Astronaut
-    }
     
     let mission: Mission
-    let crew: [CrewMember]
+    let astronauts: [String: Astronaut]
     
     var body: some View {
         GeometryReader { geo in
@@ -23,63 +19,16 @@ struct MissionView: View {
                     Image(mission.image)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth:geo.size.width * 0.6)
-                        .padding(.top)
+                        .frame(maxWidth: geo.size.width * 0.6)
+                        .padding(.vertical)
                     
+                    Text(mission.formattedLaunchDate)
+                        .font(.headline)
+                        .foregroundColor(.white.opacity(0.5))
                     
-                    VStack(alignment: .leading) {
-                        Rectangle()
-                            .frame(height: 2)
-                            .foregroundColor(.lightBackground)
-                            .padding(.vertical)
-                        
-                        Text("Mission Highlights")
-                            .font(.title.bold())
-                            .padding(.bottom, 5)
-                        
-                        Text(mission.description)
-                        
-                        Rectangle()
-                            .frame(height: 2)
-                            .foregroundColor(.lightBackground)
-                            .padding(.vertical)
-                        
-                        Text("Crew")
-                            .font(.title.bold())
-                            .padding(.bottom, 5)
-                    }
-                    .padding(.horizontal)
+                    MissionDescriptionView(mission: mission)
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(crew, id: \.role) { crewMember in
-                                NavigationLink {
-                                    AstronautView(astronaut: crewMember.astronaut)
-                                } label: {
-                                    HStack {
-                                        Image(crewMember.astronaut.id)
-                                            .resizable()
-                                            .frame(width: 100, height: 72)
-                                            .clipShape(Capsule())
-                                            .overlay(
-                                                Capsule()
-                                                    .strokeBorder(.white, lineWidth: 1)
-                                            )
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(crewMember.astronaut.name)
-                                                .foregroundColor(.white)
-                                                .font(.headline)
-                                            
-                                            Text(crewMember.role)
-                                                .foregroundColor(.secondary)
-                                        }
-                                    }
-                                    .padding(.horizontal)
-                                }
-                            }
-                        }
-                    }
+                    CrewMembersView(mission: mission, astronauts: astronauts)
                 }
                 .padding(.bottom)
             }
@@ -87,18 +36,6 @@ struct MissionView: View {
         .navigationTitle(mission.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .background(.darkBackground)
-    }
-    
-    init(mission: Mission, astronauts: [String: Astronaut]) {
-        self.mission = mission
-        
-        self.crew = mission.crew.map { member in
-            if let astronaut = astronauts[member.name] {
-                return CrewMember(role: member.role, astronaut: astronaut)
-            } else {
-                fatalError("Missing \(member.name)")
-            }
-        }
     }
 }
 
