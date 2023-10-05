@@ -34,10 +34,9 @@ struct ListView: View {
                     }
                 }
             }
-            .listRowSeparator(/*@START_MENU_TOKEN@*/.visible/*@END_MENU_TOKEN@*/)
-            .listRowBackground(Color(red: 0.2, green: 0.2, blue: 0.3))
+            .listRowBackground(Color.darkBackground)
         }
-        .scrollContentBackground(.hidden)
+        .listStyle(.plain)
     }
 }
 
