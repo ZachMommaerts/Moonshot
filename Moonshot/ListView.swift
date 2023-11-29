@@ -35,6 +35,9 @@ struct ListView: View {
                 }
             }
             .listRowBackground(Color.darkBackground)
+            .accessibilityElement()
+            .accessibilityLabel("Mission: \(mission.displayName), Date: \(mission.formattedLaunchDate)")
+            .accessibilityAddTraits(.isButton)
         }
         .listStyle(.plain)
     }

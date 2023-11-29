@@ -21,6 +21,8 @@ struct MissionView: View {
                         .scaledToFit()
                         .frame(maxWidth: geo.size.width * 0.6)
                         .padding(.vertical)
+                        .accessibilityLabel("Picture of mission crest.")
+                        .accessibilityRemoveTraits(.isImage)
                     
                     Text(mission.formattedLaunchDate)
                         .font(.headline)

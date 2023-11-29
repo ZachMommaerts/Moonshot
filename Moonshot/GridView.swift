@@ -46,6 +46,9 @@ struct GridView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(.lightBackground)
                         }
+                        .accessibilityElement()
+                        .accessibilityLabel("Mission: \(mission.displayName), Date: \(mission.formattedLaunchDate)")
+                        .accessibilityAddTraits(.isButton)
                     }
                 }
             }

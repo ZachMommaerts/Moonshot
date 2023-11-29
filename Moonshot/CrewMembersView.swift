@@ -44,6 +44,9 @@ struct CrewMembersView: View {
                         }
                         .padding(.horizontal)
                     }
+                    .accessibilityElement()
+                    .accessibilityLabel("Picture of \(crewMember.astronaut.name), Role: \(crewMember.role)")
+                    .accessibilityAddTraits(.isButton)
                 }
             }
         }
